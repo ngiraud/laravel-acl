@@ -1,0 +1,20 @@
+{
+    "name": "ngiraud1/acl",
+    "description": "Package to implements the acl functionality",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolas Giraud",
+            "email": "contact@ngiraud.me"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "5.3.*",
+    },
+    "autoload": {
+        "psr-4": {
+            "NGiraud\\ACL\\": "src/"
+        }
+    }
+}
