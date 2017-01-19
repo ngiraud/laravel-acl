@@ -1,5 +1,5 @@
 {
-    "name": "ngiraud1/acl",
+    "name": "ngiraud/laravel-acl",
     "description": "Package to implements the acl functionality",
     "license": "MIT",
     "authors": [
