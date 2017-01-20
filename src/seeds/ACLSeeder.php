@@ -15,13 +15,13 @@ class ACLSeeder extends Seeder {
 		DB::table('role_user')->delete();
 
 		// Permissions
-		$perm_user = \App\Permission::firstOrCreate([
+		$perm_user = \NGiraud\ACL\Permission::firstOrCreate([
 			'title' => 'Manage users',
 			'slug'  => 'manage_user',
 		]);
 
 		// Roles
-		$role_admin = \App\Role::firstOrCreate([
+		$role_admin = \NGiraud\ACL\Role::firstOrCreate([
 			'title' => 'Administrator',
 			'slug'  => 'administrator',
 		]);

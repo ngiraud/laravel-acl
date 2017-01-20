@@ -7,15 +7,11 @@
 ```shell
 "require": {
   ...
-  "ngiraud1/acl": "dev-master",
-  ...²
+  "ngiraud/laravel-acl": "^1.0.0",
+  ...
 },
-"repositories": [{
-  "type": "vcs",
-  "url": "https://ngiraud1@bitbucket.org/ngiraud1/laravel_packages-acl.git"
-}],
 ```
-et faire la commande :
+et exécuter la commande :
 ```shell
 composer update
 ```
@@ -26,19 +22,39 @@ composer update
 NGiraud\ACL\ACLServiceProvider::class,
 ```
 
-* Publier les vues, traductions et assets
+* Publier les la config et le seeder
 
 ```shell
-php artisan vendor:publish --provider="NGiraud\News\NewsServiceProvider" --tag=news
+php artisan vendor:publish --tag=acl
 ```
 
-* Migrer les tables
+* Ajouter le trait UserACL au model User
+
+```php
+class User extends Authenticatable {
+    use Notifiable, UserACL;
+}
+```
+
+* Ajouter le le route middlewrae dans Http/Kernel.php
+
+```php
+protected $routeMiddleware = [
+    ...
+    'acl' => \NGiraud\ACL\Middleware\CheckPermission::class,
+    ...
+]
+```
+
+* On peut ajouter une règle dans les routes par exemple en faisant :
+```php
+Route::get('/admin/test', [ 'as' => 'admin.test', 'uses' => 'HomeController@test' ])->middleware('acl:manage_users');
+```
+
+* Migrer les tables et exécuter les seeds
 
 ```shell
 php artisan migrate
-```
-
-* Le menu pour les news peut être ajouté grâce à l'inclusion suivante
-```php
-@include('acl::admin.acl.menu')
+php artisan db:seed --class=UserTableSeeder
+php artisan db:seed --class=ACLSeeder
 ```
