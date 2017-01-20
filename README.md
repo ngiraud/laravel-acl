@@ -1,5 +1,11 @@
 # Package ACL pour Laravel 5.3 #
 
+### Requis ###
+Il faut d'abord effectuer l'installation de l'authentification dans le projet Laravel. Cela peut-être fait grâce à la commande :
+```shell
+php artisan make:auth
+```
+
 ### Installation ###
 
 * Ajouter les lignes dans le composer.json
@@ -14,6 +20,7 @@
 et exécuter la commande :
 ```shell
 composer update
+composer dump-autoload
 ```
 
 * Ajouter le ServiceProvider dans app.php
@@ -22,7 +29,7 @@ composer update
 NGiraud\ACL\ACLServiceProvider::class,
 ```
 
-* Publier les la config et le seeder
+* Publier la config et le seeder
 
 ```shell
 php artisan vendor:publish --tag=acl
@@ -31,12 +38,14 @@ php artisan vendor:publish --tag=acl
 * Ajouter le trait UserACL au model User
 
 ```php
+use NGiraud\ACL\UserACL;
+
 class User extends Authenticatable {
     use Notifiable, UserACL;
 }
 ```
 
-* Ajouter le le route middlewrae dans Http/Kernel.php
+* Ajouter le route middleware dans Http/Kernel.php
 
 ```php
 protected $routeMiddleware = [
@@ -44,6 +53,12 @@ protected $routeMiddleware = [
     'acl' => \NGiraud\ACL\Middleware\CheckPermission::class,
     ...
 ]
+```
+
+* Ajouter une variable dans le .env pour les superadmin users (id user séparés par des virgules)
+
+```php
+SUPERADMIN_USERS=1,2,3,4,5
 ```
 
 * On peut ajouter une règle dans les routes par exemple en faisant :
