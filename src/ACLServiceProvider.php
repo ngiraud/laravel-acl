@@ -26,8 +26,9 @@ class ACLServiceProvider extends ServiceProvider {
 
 		// Publishing config file
 		$this->publishes([
-			__DIR__.'/config/' => config_path(),
-			__DIR__.'/seeds/' => database_path('seeds'),
+			__DIR__.'/config/acl.php' => config_path('acl.php'),
+			__DIR__.'/seeds/ACLSeeder.php' => database_path('seeds/ACLSeeder.php'),
+			__DIR__.'/seeds/UserTableSeeder.php' => database_path('seeds/UserTableSeeder.php'),
 		], 'acl');
 	}
 

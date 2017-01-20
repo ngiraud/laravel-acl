@@ -20,7 +20,6 @@ php artisan make:auth
 et exécuter la commande :
 ```shell
 composer update
-composer dump-autoload
 ```
 
 * Ajouter le ServiceProvider dans app.php
@@ -33,8 +32,8 @@ NGiraud\ACL\ACLServiceProvider::class,
 
 ```shell
 php artisan vendor:publish --tag=acl
+composer dump-autoload
 ```
-
 * Ajouter le trait UserACL au model User
 
 ```php
